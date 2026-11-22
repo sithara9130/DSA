@@ -1,0 +1,166 @@
+public class SinglyLinkedList {
+
+    // Node class
+    private static class Node {
+
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+    private int size;
+
+    public SinglyLinkedList() {
+        head = null;
+        size = 0;
+    }
+
+    // Insert at beginning
+    public void insertAtBeginning(int value) {
+
+        Node newNode = new Node(value);
+
+        newNode.next = head;
+
+        head = newNode;
+
+        size++;
+    }
+
+    // Insert at end
+    public void insertAtEnd(int value) {
+
+        Node newNode = new Node(value);
+
+        if (head == null) {
+
+            head = newNode;
+
+        } else {
+
+            Node current = head;
+
+            while (current.next != null) {
+                current = current.next;
+            }
+
+            current.next = newNode;
+        }
+
+        size++;
+    }
+
+    // Delete a node
+    public boolean delete(int value) {
+
+        if (head == null) {
+            return false;
+        }
+
+        if (head.data == value) {
+
+            head = head.next;
+
+            size--;
+
+            return true;
+        }
+
+        Node current = head;
+
+        while (current.next != null &&
+                current.next.data != value) {
+
+            current = current.next;
+        }
+
+        if (current.next == null) {
+            return false;
+        }
+
+        current.next = current.next.next;
+
+        size--;
+
+        return true;
+    }
+
+    // Search for an element
+    public boolean search(int value) {
+
+        Node current = head;
+
+        while (current != null) {
+
+            if (current.data == value) {
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    // Get list size
+    public int size() {
+        return size;
+    }
+
+    // Check whether list is empty
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    // Display the linked list
+    public void display() {
+
+        if (isEmpty()) {
+            System.out.println("List is empty.");
+            return;
+        }
+
+        Node current = head;
+
+        System.out.print("Head -> ");
+
+        while (current != null) {
+
+            System.out.print(current.data + " -> ");
+
+            current = current.next;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        list.insertAtEnd(10);
+        list.insertAtEnd(20);
+        list.insertAtBeginning(5);
+
+        System.out.println("Singly Linked List:");
+
+        list.display();
+
+        System.out.println("Is 20 in the list? "
+                + list.search(20));
+
+        System.out.println("Deleting 10: "
+                + list.delete(10));
+
+        System.out.println("List after deletion:");
+
+        list.display();
+
+        System.out.println("List size: " + list.size());
+    }
+}
